@@ -12,7 +12,7 @@
 	<artifactId>testtutorial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>testtutorial</name>
-	<description>Test tutorial project with Spring Bootgit </description>
+	<description>Test tutorial project with Spring Boot and JUnit</description>
 
 	<properties>
 		<java.version>1.8</java.version>
