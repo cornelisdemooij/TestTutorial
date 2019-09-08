@@ -28,4 +28,6 @@ public class Question {
         this.text = text;
     }
 
+    public int getLength() { return text.length(); }
+
 }
