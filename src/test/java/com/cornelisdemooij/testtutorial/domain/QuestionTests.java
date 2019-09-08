@@ -14,8 +14,13 @@ public class QuestionTests {
 
     @Test
     public void checkLength() {
-        Question question = new Question();
-        question.setText("Is this a question?");
+        Question question = new Question("Is this a question?");
         Assert.assertEquals(19, question.getLength());
+    }
+
+    @Test
+    public void checkZeroLength() {
+        Question question = new Question("");
+        Assert.assertEquals(0, question.getLength());
     }
 }

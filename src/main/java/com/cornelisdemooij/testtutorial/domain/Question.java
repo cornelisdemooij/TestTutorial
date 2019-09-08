@@ -14,6 +14,13 @@ public class Question {
 
     private String text;
 
+    public Question() {
+        this.text = "";
+    }
+    public Question(String text) {
+        this.text = text;
+    }
+
     public long getId() {
         return id;
     }
