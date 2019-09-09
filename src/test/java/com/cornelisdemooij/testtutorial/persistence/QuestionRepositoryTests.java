@@ -29,6 +29,7 @@ public class QuestionRepositoryTests {
 
     @Test
     public void saveAndGetMultipleQuestionsFromEmbeddedDB() {
+        questionRepo.deleteAll();
         Question question1 = questionRepo.save(new Question("Is this the first question?"));
         Question question2 = questionRepo.save(new Question("Could it be the second question?"));
         //Question question3 = questionRepo.save(new Question("What? A third question?"));
