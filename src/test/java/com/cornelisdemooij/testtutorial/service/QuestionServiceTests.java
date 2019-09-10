@@ -1,14 +1,10 @@
-package com.cornelisdemooij.testtutorial.api;
+package com.cornelisdemooij.testtutorial.service;
 
 import com.cornelisdemooij.testtutorial.domain.Question;
 import com.cornelisdemooij.testtutorial.persistence.QuestionRepository;
-import com.cornelisdemooij.testtutorial.service.QuestionService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +16,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-public class QuestionEndpointTests {
+public class QuestionServiceTests {
 
     @TestConfiguration
     static class testConfig {
