@@ -8,6 +8,6 @@ public class Controller {
 
     @RequestMapping("/")
     public String index() {
-        return "Greetings from Spring Boot!";
+        return "You have reached the TesttutorialApplication. Try /api/question.";
     }
 }
