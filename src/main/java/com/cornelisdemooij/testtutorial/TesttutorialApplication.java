@@ -16,7 +16,7 @@ public class TesttutorialApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
-			System.out.println("Hello TEP14! Ready for some testing?");
+			System.out.println("Good morning everyone! Ready for some testing?");
 		};
 	}
 

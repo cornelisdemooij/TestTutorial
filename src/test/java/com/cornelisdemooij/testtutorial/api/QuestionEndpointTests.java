@@ -3,6 +3,7 @@ package com.cornelisdemooij.testtutorial.api;
 import com.cornelisdemooij.testtutorial.domain.Question;
 import com.cornelisdemooij.testtutorial.persistence.QuestionRepository;
 import com.cornelisdemooij.testtutorial.service.QuestionService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,17 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class QuestionEndpointTests {
 
     @Autowired
@@ -30,14 +30,15 @@ public class QuestionEndpointTests {
     private QuestionService questionService;
 
     @MockBean
-    private QuestionRepository questionRepo;
+    private QuestionRepository questionRepository;
 
     @Before
     public void setUp() {
         Question[] questionArray = {
-            new Question("Does this answer your question?"),
-            new Question("How about this?")
+                new Question("Gaat Ajax vanavond winnen?"),
+                new Question("Gaat het vanavond regenen?")
         };
+        questionArray[1].setId((long)1);
         Iterable<Question> questions = Arrays.asList(questionArray);
 
         when(questionService.findById(questionArray[0].getId())).thenReturn(questionArray[0]);
@@ -46,22 +47,16 @@ public class QuestionEndpointTests {
     }
 
     @Test
-    public void getQuestionsFromEndpointWithMockedService() throws Exception {
-        ResponseEntity<String> entity = this.restTemplate.getForEntity("/api/question", String.class);
-        String expectedResponse = "[{\"id\":0,\"text\":\"Does this answer your question?\",\"length\":31},{\"id\":0,\"text\":\"How about this?\",\"length\":15}]";
+    public void getQuestionsFromEndpointWithMockedService() {
+        ResponseEntity<String> entity = restTemplate.getForEntity("/api/question", String.class);
 
-        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(entity.getBody()).isEqualTo(expectedResponse);
-
-        verify(questionService, never()).findById((long)0);
-        verify(questionService, never()).findById((long)1);
-
-        verify(questionService, never()).findById(anyLong());
+        Assert.assertEquals(200, entity.getStatusCodeValue());
+        Assert.assertEquals("[{\"id\":0,\"text\":\"Gaat Ajax vanavond winnen?\",\"length\":26},{\"id\":1,\"text\":\"Gaat het vanavond regenen?\",\"length\":26}]",
+                            entity.getBody());
 
         verify(questionService).findAll();
-        verifyNoMoreInteractions(questionService);
+        verify(questionService, never()).findById(anyLong());
 
-        verifyZeroInteractions(questionRepo);
+        verifyZeroInteractions(questionRepository);
     }
-
 }
